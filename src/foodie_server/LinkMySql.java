@@ -209,6 +209,7 @@ public class LinkMySql {
 						+menu[i].Menu_appraise);
 				i++;
 				}
+			//查询菜单完成，下面是把菜单信息发送到client,可以放到serverThread里
 			for(int j=0;j<menu.length;j++)
 			{
 				out.writeUTF(menu[j].Menu_num);
