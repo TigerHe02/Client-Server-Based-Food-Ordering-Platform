@@ -649,7 +649,8 @@ public class LinkMySql {
 		String header = parms[2]+";"+image.length();
 		out.write(header.getBytes());      
 		out.write("\r".getBytes());           
-		out.flush();                  
+		out.flush();          
+		//read the fileInputStream to buffer
 		while ((readBytes = in.read(buffer)) != -1) 
 		{  
 			//把图片输出到客户端。这里的out就是serveThread里的out
@@ -670,15 +671,19 @@ public class LinkMySql {
     {
         try { 
           boolean isEnd = false; 
+          //get the inputStream from socket
             BufferedInputStream in = new BufferedInputStream(socket.getInputStream()); 
             while (!isEnd) { 
                  int d = -1; 
+                 //the image file
                  StringBuilder header = new StringBuilder(); 
+                 //read the inputStream
                  while ((d = in.read()) != '\r') { 
                       if (d == -1) { 
                             isEnd = true; 
                             break; 
                         } 
+                      //
                         header.append((char) d); 
                     } 
                     if (!isEnd) { 
@@ -688,6 +693,7 @@ public class LinkMySql {
                             isEnd = true;
                             break;
                         }
+                        //output the image path
                         FileOutputStream out = new FileOutputStream("E:/image/"+ parms[0]);
                         System.out.println("我的天： "+"E:/image/"+parms[0]);
                         long size = Long.parseLong(parms[1]); 
